@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deepfake Face Swap Detection</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Deepfake Face Swap Detection</h1>
+      <p class="instruction">Add the picture that you want to detect whether it is deepfaked or not. The image should be clear for better accuracy.</p>
+    </header>
+    <div class="main-content">
+      <div class="upload-container">
+        <input type="file" id="file-upload" accept="image/*" />
+        <button id="browse-btn">Browse your files</button>
+      </div>
+      <div class="result-container">
+        <p id="result-label" class="hidden">Analyzing...</p>
+        <div id="image-preview" class="hidden">
+          <img src="" alt="Uploaded Image" id="uploaded-image" />
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>Deepfake Detection</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('browse-btn').addEventListener('click', function () {
+      document.getElementById('file-upload').click();
+    });
+
+    document.getElementById('file-upload').addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const imgElement = document.getElementById('uploaded-image');
+          imgElement.src = event.target.result;
+          document.getElementById('image-preview').classList.remove('hidden');
+          analyzeImage(file);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function analyzeImage(file) {
+      document.getElementById('result-label').classList.remove('hidden');
+      document.getElementById('result-label').innerText = 'Analyzing...';
+      
+      const formData = new FormData();
+      formData.append('file', file);
+
+      fetch('/predict', { 
+        method: 'POST', 
+        body: formData 
+      })
+      .then(response => response.json())
+      .then(data => {
+        const resultText = data.prediction >= 0.7 ? "Deepfake Detected" : "No Deepfake Detected";
+        document.getElementById('result-label').innerText = resultText;
+        document.getElementById('result-label').style.color = '#FF5722'; // Result label color
+      })
+      .catch(error => {
+        document.getElementById('result-label').innerText = "Error in analysis.";
+        document.getElementById('result-label').style.color = 'red';
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  header h1 {
+    color: #333;
+    font-size: 28px;
+  }
+  
+  .instruction {
+    font-size: 14px;
+    color: #333;
+    font-style: italic;
+  }
+  
+  .main-content {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .upload-container {
+    margin: 20px 0;
+  }
+  
+  #browse-btn {
+    background-color: #6200EE;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  #browse-btn:hover {
+    background-color: #7C4DFF;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+  
+  .result-container {
+    margin-top: 20px;
+  }
+  
+  #image-preview {
+    margin-top: 20px;
+  }
+  
+  #image-preview img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  #result-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  #result-label.hidden {
+    display: none;
+  }
+  
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 16px;
+    color: #FF9800;
+  }
+  
